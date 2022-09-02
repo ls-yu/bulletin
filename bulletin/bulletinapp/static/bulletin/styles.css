@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+body {
+    padding: 10px;
+    background-color:#e1f3f8;
+    opacity:0.9;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-bottom: 50px;
+    font-family:'Roboto', sans-serif;
+}
+h1 {color:#12101f;font-size:60px; text-align:center;}
+h2 {color:#12101f;font-size:30px; text-align:center;}
+h3 {color:#12101f;font-size:20px; text-align:center;}
+h4 {color:#12101f;font-size:20px; text-align:left;}
+.menu {
+    display:flex;
+    align-items: right;
+}
+.nav-item1 {
+    background-color:white; /* Green */
+    border: none;
+    color: white;
+    font-size:15px;
+    padding: 5px 5px;
+    text-align: center;
+    text-decoration: none;
+    margin-right: 50px;
+    margin-left:20px;
+
+    cursor: pointer;
+    border-radius: 10px;
+  }
+  .nav-item2 {
+    background-color:white; /* Green */
+    border: none;
+    color: white;
+    font-size:15px;
+    padding: 5px 5px;
+    text-align: center;
+    text-decoration: none;
+    margin-right:50px;
+    margin-left:10px;
+
+    cursor: pointer;
+    border-radius: 10px;
+  }
+.post-link {
+    font-size: 20px;
+    text-overflow: ellipsis;
+
+  /* Required for text-overflow to do anything */
+  white-space: nowrap;
+  overflow: hidden;
+}
+.list-link {
+    font-size: 20px;
+    text-overflow: ellipsis;
+    text-align:center;
+  /* Required for text-overflow to do anything */
+  white-space: nowrap;
+  overflow: hidden;
+}
+.list-item{
+    font-size: 22px;
+}
+.form-item{
+    font-size: 16px;
+}
+p{
+    padding: 20px;
+}
+.card {
+    border-radius: 1.5rem;
+    background-color: #f8fcfff7;
+    border: 1px solid rgba(255, 255, 255, 0.669);
+    margin-bottom: 3rem;
+    padding:15px;
+  }
+
+.welcome{
+  font-size:20px;
+}

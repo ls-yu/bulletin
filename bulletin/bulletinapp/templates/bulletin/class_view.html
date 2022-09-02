@@ -1,0 +1,29 @@
+{% extends "bulletin/layout.html" %}
+{% block title %}
+{{class.name}}
+{% endblock %}
+
+{% block body %}
+<div class="container">
+<h2 style="text-align:center"><strong>{{class.name}}</strong></h2>
+<h4>New post:</h4>
+<form method="POST" id="postform">
+    {% csrf_token %}
+    <label for="title">Title:</label>
+    <input type="text" name="title" maxlength="100" minlength="1" class="form-item">
+    <br>
+    <label for="text">Content:</label>
+    <br>
+    <textarea class="form-item" name="text" rows="5" cols="100" form="postform" maxlength="1500" id="textarea"></textarea>
+    <br>
+    <br>
+    <input type="submit" value="Submit Post" class="btn btn-primary">
+</form>
+<br>
+{% for post in posts %}
+<div class="card">    
+    <a href="{% url 'post' post_id=post.post_id %}" class="post-link">{{post.date}} {{post.title}} : {{post.text}}</a>
+</div>
+{% endfor %}
+
+{% endblock %}

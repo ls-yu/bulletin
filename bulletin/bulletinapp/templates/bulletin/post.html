@@ -1,0 +1,23 @@
+{% extends "bulletin/layout.html" %}
+{% block title %}
+{{post.title}} - Bulletin
+{% endblock %}
+
+{% block body %}
+<div class="container">
+<div class="card">
+<h4><strong>  {{post.title}}</strong></h4>
+<h5>  {{post.date}}</h5>
+<p>  {{post.text}}</p>
+</div>
+    <form method="POST">
+            {% csrf_token %}
+            <h4>Comment:</h4>
+            <br>
+            <textarea class="form-item" name="text" rows="3" cols="50" form="postform" maxlength="1500" id="textarea"></textarea>
+            <br>
+            <br>
+            <input type="submit" name = "action" value="Comment" class="btn btn-primary">
+    </form>
+</div>
+{% endblock %}

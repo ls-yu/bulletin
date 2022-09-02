@@ -1,0 +1,20 @@
+{% extends "bulletin/layout.html" %}
+{% block title %}
+Bulletin Home Page
+{% endblock %}
+
+{% block body %}
+    <h2><strong>View Classes:</strong></h2>
+        {% if is_instructor %}
+        <a href="{% url 'new_class' %}" class="list-link">Create A New Class</a>
+        {% else %}
+        <a href="{% url 'join_class' %}" class="list-link">Join Class</a>
+        {% endif %}
+        <br>
+        {% for class in classes%}
+        <div class="card">
+            <a class="list-link" href="{% url 'class_view' class_code=class.class_code %}">{{class.name}} | Code: {{class.class_code}}</a>
+        </div>
+        {% endfor %}
+    
+{% endblock %}
