@@ -38,6 +38,22 @@ class PostForm(forms.ModelForm):
             "text": mark_safe('Text <br>')
         }
 
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['text']
+        widgets = {
+            'text': forms.Textarea(attrs={
+            'rows': 5,
+            'class': 'form-item'
+            })
+         }
+        labels = {
+            "text": mark_safe('Text <br>')
+        }
+#        exclude = ['commenter', 'class']
+
 def welcome(request):
     return render(request, "bulletin/welcome.html")
 
@@ -173,15 +189,29 @@ def class_view(request, class_code):
         })
 
 def post(request, post_id):
-    #post = Post.objects.get(pk=post_id)
-    post = get_object_or_404(Post, post_id=post_id)
-    comment = CommentForm()
-    post_comments = Comment.objects.filter(post=post)
-    return render(request, "bulletin/post.html", {
-        'post': post,
-        'comment': comment,
-        'post_comments':post_comments
-    })
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            text = form.cleaned_data["text"]
+            commenter = get_object_or_404(UserProfile, pk=request.user)
+            post = get_object_or_404(Post, post_id=post_id)
+            comment = Comment(text=text, commenter=commenter, post=post)
+            comment.save()
+        else:
+            for field in form:
+                print("Field Error:", field.name,  field.errors)
+            return HttpResponse("Failed to submit comment")
+        return HttpResponseRedirect(reverse("post", args=[post_id]))
+    else:
+        #post = Post.objects.get(pk=post_id)
+        post = get_object_or_404(Post, post_id=post_id)
+        comment = CommentForm()
+        comments = Comment.objects.filter(post=post)
+        return render(request, "bulletin/post.html", {
+            'post': post,
+            'comment': comment,
+            'comments':comments
+        })
 
 def join_class(request):
     if request.method == 'POST':
@@ -194,21 +224,3 @@ def join_class(request):
     else:
         return render(request, "bulletin/join_class.html")
 
-
-class CommentForm(forms.ModelForm):
-    class Meta:
-        model = Comment
-        widgets = {
-            'title': forms.TextInput(attrs={
-            'class': 'form-item'
-            }),
-            'text': forms.Textarea(attrs={
-            'rows': 5,
-            'class': 'form-item'
-            })
-         }
-        labels = {
-            "title": mark_safe('Comment <br>'),
-            "text": mark_safe('Text <br>')
-        }
-        exclude = ['commenter', 'class']

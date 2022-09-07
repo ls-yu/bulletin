@@ -5,19 +5,26 @@
 
 {% block body %}
 <div class="container">
+
 <div class="card">
 <h4><strong>  {{post.title}}</strong></h4>
 <h5>  {{post.date}}</h5>
 <p>  {{post.text}}</p>
 </div>
-    <form method="POST">
+<hr>
+{% for comment in comments %}
+<div class="card" id="comment-card">    
+<p><strong>{{comment.commenter}}:</strong>   {{comment.text}}</p>
+</div>
+{% endfor %}
+    <form method="POST" id="commentform">
             {% csrf_token %}
-            <h4>Comment:</h4>
+            <h4>Leave a Comment:</h4>
             <br>
-            <textarea class="form-item" name="text" rows="3" cols="50" form="postform" maxlength="1500" id="textarea"></textarea>
+            <textarea class="form-item" name="text" rows="3" cols="50" form="commentform" maxlength="1500" id="textarea"></textarea>
             <br>
             <br>
-            <input type="submit" name = "action" value="Comment" class="btn btn-primary">
+            <input type="submit" value="Comment" class="btn btn-primary">
     </form>
 </div>
 {% endblock %}
